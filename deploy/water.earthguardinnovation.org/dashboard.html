@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EarthGuard Innovations WaterOps Dashboard</title>
+    <meta
+      name="description"
+      content="EarthGuard Innovations water leakage, NRW, IoT, AI, and water quality monitoring dashboard."
+    />
+    <link rel="stylesheet" href="dashboard.css?v=20260702-login" />
+  </head>
+  <body class="auth-locked">
+    <section class="login-screen" id="loginScreen" aria-label="Dashboard login">
+      <form class="login-card" id="loginForm">
+        <div class="login-brand">
+          <div class="brand-mark">W</div>
+          <div>
+            <strong>EarthGuard</strong>
+            <span>WaterOps AI</span>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Secure dashboard access</p>
+          <h1>Sign in to Water Command</h1>
+        </div>
+        <label for="loginUsername">Username</label>
+        <input id="loginUsername" name="username" autocomplete="username" required />
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
+        <p class="login-error" id="loginError" role="alert"></p>
+        <button class="primary-button login-button" type="submit">Login</button>
+      </form>
+    </section>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div>
+            <strong>EarthGuard</strong>
+            <span>WaterOps AI</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="overview" title="Overview">
+            <span class="icon">H</span>
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" data-view="alerts" title="Alerts">
+            <span class="icon">!</span>
+            <span>Alerts</span>
+          </button>
+          <button class="nav-item" data-view="gis" title="GIS loss areas">
+            <span class="icon">G</span>
+            <span>GIS Loss</span>
+          </button>
+          <button class="nav-item" data-view="sensors" title="Sensors">
+            <span class="icon">S</span>
+            <span>Sensors</span>
+          </button>
+          <button class="nav-item" data-view="quality" title="Water quality">
+            <span class="icon">Q</span>
+            <span>Quality</span>
+          </button>
+          <button class="nav-item" data-view="members" title="Registered members">
+            <span class="icon">M</span>
+            <span>Members</span>
+          </button>
+          <button class="nav-item" data-view="works" title="Work orders">
+            <span class="icon">W</span>
+            <span>Work Orders</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-status">
+          <span class="status-dot green"></span>
+          <div>
+            <strong>95.8%</strong>
+            <span>Telemetry uptime</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar" id="topbar">
+          <div>
+            <p class="eyebrow" id="topbarEyebrow">water.earthguardinnovation.org - Urban DMA-04</p>
+            <h1 id="topbarTitle">EarthGuard Water Command Center</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="sync-chip">
+              <strong id="twinConfidence">87%</strong>
+              <span>Twin confidence</span>
+            </div>
+            <div class="sync-chip">
+              <strong id="lastSync">18 sec</strong>
+              <span>Last sync</span>
+            </div>
+            <div class="sync-chip notification-chip">
+              <strong id="notificationCount">0</strong>
+              <span>Notifications</span>
+            </div>
+            <label class="select-label" for="windowSelect">Window</label>
+            <select id="windowSelect">
+              <option>Live</option>
+              <option>24 hours</option>
+              <option>7 days</option>
+              <option>30 days</option>
+            </select>
+            <button id="simulateBtn" class="primary-button" type="button">Simulate Alert</button>
+            <button id="logoutBtn" class="secondary-button" type="button">Logout</button>
+          </div>
+        </header>
+
+        <section class="command-banner" data-move-to="overview" aria-label="Highest priority command">
+          <div>
+            <span>Highest-priority decision</span>
+            <strong id="topCommand">Inspect Market Street between Valve V12 and Meter Cluster M8 now.</strong>
+            <small id="topCommandDetail">Suspected illegal connection or meter bypass. Evidence strength: High.</small>
+          </div>
+          <div class="command-money">
+            <span>Estimated revenue loss today</span>
+            <strong id="topRevenueToday">KES 32,750</strong>
+          </div>
+          <div class="command-money">
+            <span>Estimated monthly recovery</span>
+            <strong id="topMonthlyRecovery">KES 982,500</strong>
+          </div>
+          <div class="command-money">
+            <span>Estimated annual recovery</span>
+            <strong id="topAnnualRecovery">KES 11,954,000</strong>
+          </div>
+        </section>
+
+        <section class="metric-grid" data-move-to="overview" aria-label="Pilot metrics">
+          <article class="metric">
+            <span>DMA Status</span>
+            <strong id="dmaStatus">Yellow</strong>
+            <small>Possible leakage</small>
+          </article>
+          <article class="metric">
+            <span>Current NRW</span>
+            <strong id="nrwValue">38.4%</strong>
+            <small>Baseline 45.2%</small>
+          </article>
+          <article class="metric">
+            <span>Inlet Flow</span>
+            <strong id="flowValue">112.6 m3/h</strong>
+            <small>+8.1% vs normal</small>
+          </article>
+          <article class="metric">
+            <span>Average Pressure</span>
+            <strong id="pressureValue">31.8 m</strong>
+            <small>Stable</small>
+          </article>
+          <article class="metric">
+            <span>Water Quality</span>
+            <strong id="qualityValue">92</strong>
+            <small>Good index</small>
+          </article>
+          <article class="metric">
+            <span>Open Work Orders</span>
+            <strong id="workValue">7</strong>
+            <small>3 urgent</small>
+          </article>
+          <article class="metric">
+            <span>Registered Members</span>
+            <strong id="memberValue">8</strong>
+            <small>6 active, 2 need review</small>
+          </article>
+        </section>
+
+        <section class="ops-ribbon" data-move-to="overview" aria-label="Operational decision summary">
+          <article>
+            <span>Priority Event</span>
+            <strong id="priorityTarget">Market Street V12-M8</strong>
+            <small>Highest theft probability and recoverable revenue</small>
+          </article>
+          <article>
+            <span>Customer Impact</span>
+            <strong>1,284 accounts</strong>
+            <small>42 priority connections in zone</small>
+          </article>
+          <article>
+            <span>Response Window</span>
+            <strong>2 hr 15 min</strong>
+            <small>Before service-risk escalation</small>
+          </article>
+          <article>
+            <span>Energy Intensity</span>
+            <strong>0.42 kWh/m3</strong>
+            <small>+6% from pressure instability</small>
+          </article>
+        </section>
+
+        <section class="integrity-strip" data-move-to="overview" aria-label="System integrity commissioning health">
+          <div>
+            <span>System Integrity</span>
+            <strong>Commissioning health</strong>
+          </div>
+          <div id="integrityStrip" class="integrity-strip-items"></div>
+        </section>
+
+        <section class="quality-strip" data-move-to="overview" aria-label="Water quality status summary">
+          <div>
+            <span>Water Quality</span>
+            <strong>Live chamber readings</strong>
+            <small>Residual chlorine, turbidity, pH, conductivity, temperature, and contamination risk</small>
+          </div>
+          <div id="qualitySummary" class="quality-summary-items"></div>
+        </section>
+
+        <section id="overview" class="view active">
+          <div id="overviewPanels" class="tab-panel-grid overview-panel-grid"></div>
+          <div class="dashboard-grid">
+            <section class="panel map-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>DMA Live Map</h2>
+                  <span>GIS loss areas, flow, pressure, quality, and commercial risk</span>
+                </div>
+                <div class="legend">
+                  <span><i class="legend-dot green"></i>Normal</span>
+                  <span><i class="legend-dot yellow"></i>Monitor</span>
+                  <span><i class="legend-dot red"></i>Critical</span>
+                  <span><i class="legend-dot black"></i>Commercial</span>
+                  <span><i class="legend-dot blue-dot"></i>Quality</span>
+                  <span><i class="legend-dot loss-dot"></i>Loss area</span>
+                </div>
+              </div>
+              <div class="map-canvas" aria-label="DMA schematic map">
+                <div class="road road-a"></div>
+                <div class="road road-b"></div>
+                <div class="road road-c"></div>
+                <svg class="network-svg" viewBox="0 0 1000 520" role="img" aria-label="SVG pipe network showing water flow and leakage risk areas">
+                  <defs>
+                    <marker id="flowArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                    </marker>
+                    <filter id="riskGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                      <feMerge>
+                        <feMergeNode in="blur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <g class="risk-areas">
+                    <ellipse class="risk-area leak-area" cx="590" cy="275" rx="118" ry="74"></ellipse>
+                    <ellipse class="risk-area theft-area" cx="770" cy="164" rx="98" ry="58"></ellipse>
+                    <ellipse class="risk-area pressure-area" cx="338" cy="152" rx="92" ry="66"></ellipse>
+                  </g>
+                  <g class="pipe-network">
+                    <path class="pipe-path base-flow" d="M 95 272 C 235 258 350 270 485 278 C 630 286 760 300 885 288"></path>
+                    <path class="pipe-path branch-flow" d="M 330 268 C 320 220 315 176 312 120"></path>
+                    <path class="pipe-path branch-flow" d="M 545 278 C 570 232 602 184 652 130"></path>
+                    <path class="pipe-path branch-flow" d="M 748 292 C 788 252 810 206 800 142"></path>
+                    <path class="pipe-path branch-flow" d="M 520 280 C 555 330 610 378 690 418"></path>
+                  </g>
+                  <g class="flow-pulses">
+                    <path class="flow-pulse" d="M 95 272 C 235 258 350 270 485 278 C 630 286 760 300 885 288"></path>
+                    <path class="flow-pulse delay-a" d="M 330 268 C 320 220 315 176 312 120"></path>
+                    <path class="flow-pulse delay-b" d="M 545 278 C 570 232 602 184 652 130"></path>
+                    <path class="flow-pulse delay-c" d="M 748 292 C 788 252 810 206 800 142"></path>
+                    <path class="flow-pulse delay-d" d="M 520 280 C 555 330 610 378 690 418"></path>
+                  </g>
+                  <g class="risk-segments">
+                    <path class="risk-segment leak-segment" d="M 500 280 C 548 285 600 292 668 294"></path>
+                    <path class="risk-segment theft-segment" d="M 710 225 C 768 198 798 170 800 142"></path>
+                    <path class="risk-segment pressure-segment" d="M 330 268 C 320 220 315 176 312 120"></path>
+                  </g>
+                  <g class="svg-labels">
+                    <text x="108" y="250">DMA inflow</text>
+                    <text x="516" y="248">Leak risk 86%</text>
+                    <text x="702" y="120">Illegal use 82%</text>
+                    <text x="244" y="108">Pressure drop 71%</text>
+                    <text x="700" y="438">Quality chamber</text>
+                  </g>
+                </svg>
+                <div class="segment-trace leak-trace"></div>
+                <div class="segment-trace theft-trace"></div>
+                <div class="segment-trace pressure-trace"></div>
+                <div class="map-callout theft-callout">
+                  <strong>V12-M8</strong>
+                  <span>Illegal connection suspect</span>
+                  <b>82%</b>
+                </div>
+                <div class="map-callout leak-callout">
+                  <strong>V07-A03</strong>
+                  <span>Hidden leak suspect</span>
+                  <b>86%</b>
+                </div>
+                <button class="loss-zone severe" data-zone="East Road V07-A03: 782 m3/day hidden leak, 86% confidence" style="left: 50%; top: 38%; width: 24%; height: 28%;">L-01</button>
+                <button class="loss-zone commercial-loss" data-zone="Market Street V12-M8: 131 m3/day illegal connection suspect, 82% confidence" style="left: 70%; top: 23%; width: 19%; height: 21%;">L-02</button>
+                <button class="loss-zone moderate" data-zone="High Ridge V01-P02: 318 m3/day pressure-driven leakage" style="left: 24%; top: 16%; width: 21%; height: 24%;">L-03</button>
+                <button class="map-node node inlet normal" data-node="DMA inlet" style="left: 10%; top: 45%;">F</button>
+                <button class="map-node node pressure monitor" data-node="High elevation pressure" style="left: 31%; top: 24%;">P</button>
+                <button class="map-node node acoustic critical" data-node="Acoustic leak risk" style="left: 58%; top: 50%;">A</button>
+                <button class="map-node node meter commercial" data-node="Meter bypass suspicion" style="left: 76%; top: 31%;">M</button>
+                <button class="map-node node pressure normal" data-node="Low elevation pressure" style="left: 83%; top: 69%;">P</button>
+                <button class="map-node node prv monitor" data-node="PRV night pressure" style="left: 43%; top: 73%;">V</button>
+                <button class="map-node node quality quality-node" data-node="Water quality test chamber" style="left: 66%; top: 74%;">Q</button>
+                <div id="mapTooltip" class="map-tooltip" role="status">Select a node</div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2>AI Risk Feed</h2>
+                  <span>Ranked by probability, impact, and recoverable revenue</span>
+                </div>
+              </div>
+              <div id="riskFeed" class="risk-feed"></div>
+            </section>
+
+            <section class="panel priority-panel" data-move-to="gis">
+              <div class="panel-header">
+                <div>
+                  <h2>Go Here First</h2>
+                  <span>Decision-grade ranking, not just water-loss detection</span>
+                </div>
+              </div>
+              <div id="priorityDecision" class="priority-decision"></div>
+            </section>
+
+            <section class="panel priority-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Asset Risk Scores</h2>
+                  <span>DMA, meter, valve, and pipe section scoring</span>
+                </div>
+              </div>
+              <div id="assetRiskScores" class="asset-risk-list"></div>
+            </section>
+
+            <section class="panel" data-move-to="works">
+              <div class="panel-header">
+                <div>
+                  <h2>Mobile Field Closure</h2>
+                  <span>Actions captured on site and fed back into the model</span>
+                </div>
+              </div>
+              <ol class="playbook-list">
+                <li>Navigate to the exact street, valve, pipe section, or meter cluster.</li>
+                <li>Capture GPS, timestamped photos, meter scan, and inspection notes.</li>
+                <li>Update the case as repaired, notice issued, disconnected, replaced, or regularised.</li>
+                <li>Use the confirmed outcome to retrain future leak, theft, and meter-failure probabilities.</li>
+              </ol>
+            </section>
+
+            <section class="panel fingerprint-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>DMA Fingerprint</h2>
+                  <span>Hydraulic, quality, and commercial signature</span>
+                </div>
+              </div>
+              <div class="fingerprint-visual" aria-label="DMA operating fingerprint">
+                <div class="fingerprint-ring ring-a"></div>
+                <div class="fingerprint-ring ring-b"></div>
+                <div class="fingerprint-ring ring-c"></div>
+                <div class="fingerprint-ring ring-d"></div>
+                <div class="fingerprint-core">
+                  <strong>86</strong>
+                  <span>Risk index</span>
+                </div>
+                <span class="fingerprint-point flow-point">Flow</span>
+                <span class="fingerprint-point pressure-point">Pressure</span>
+                <span class="fingerprint-point quality-point">Quality</span>
+                <span class="fingerprint-point billing-point">Billing</span>
+              </div>
+            </section>
+
+            <section class="panel chart-panel" data-move-to="alerts">
+              <div class="panel-header">
+                <div>
+                  <h2>Forecast Risk</h2>
+                  <span>Next 12 hours</span>
+                </div>
+              </div>
+              <div id="forecastChart" class="forecast-chart" aria-label="Forecast risk timeline"></div>
+            </section>
+
+            <section class="panel fusion-panel" data-move-to="alerts">
+              <div class="panel-header">
+                <div>
+                  <h2>Event Fusion</h2>
+                  <span>Signals combined into one field decision</span>
+                </div>
+              </div>
+              <div id="fusionLanes" class="fusion-lanes"></div>
+            </section>
+
+            <section class="panel ml-panel" data-move-to="gis">
+              <div class="panel-header">
+                <div>
+                  <h2>ML Leakage Prediction</h2>
+                  <span>Predicted probability by asset segment using live water signals</span>
+                </div>
+              </div>
+              <div id="leakagePredictions" class="prediction-grid"></div>
+            </section>
+
+            <section class="panel ml-panel" data-move-to="members">
+              <div class="panel-header">
+                <div>
+                  <h2>Water Usage Forecast</h2>
+                  <span>Expected demand versus observed consumption by cluster</span>
+                </div>
+              </div>
+              <div id="usageForecast" class="usage-forecast"></div>
+            </section>
+
+            <section class="panel ml-panel" data-move-to="alerts">
+              <div class="panel-header">
+                <div>
+                  <h2>Model Features</h2>
+                  <span>Signals driving leakage, theft, and usage predictions</span>
+                </div>
+              </div>
+              <div id="modelFeatures" class="feature-weight-list"></div>
+            </section>
+
+            <section class="panel ml-panel" data-move-to="alerts">
+              <div class="panel-header">
+                <div>
+                  <h2>Hybrid Learning Loop</h2>
+                  <span>Rules, anomaly detection, supervised labels, and live feedback</span>
+                </div>
+              </div>
+              <div id="learningLoop" class="learning-loop"></div>
+            </section>
+
+            <section class="panel notification-panel" data-move-to="alerts">
+              <div class="panel-header">
+                <div>
+                  <h2>Notifications</h2>
+                  <span>Field, model, and usage alerts requiring attention</span>
+                </div>
+              </div>
+              <div id="notificationFeed" class="notification-feed"></div>
+            </section>
+
+            <section class="panel" data-move-to="works">
+              <div class="panel-header">
+                <div>
+                  <h2>Field Teams</h2>
+                  <span>Open assignments</span>
+                </div>
+              </div>
+              <div class="team-list">
+                <div><strong>Team A</strong><span>Acoustic inspection - 18 min ETA</span></div>
+                <div><strong>Team B</strong><span>Meter audit - 42 min ETA</span></div>
+                <div><strong>Team C</strong><span>Pressure validation - on site</span></div>
+              </div>
+            </section>
+
+            <section class="panel members-panel" data-move-to="members">
+              <div class="panel-header">
+                <div>
+                  <h2>Registered Members</h2>
+                  <span>Customers, operators, and priority users linked to meters</span>
+                </div>
+              </div>
+              <div id="memberCards" class="member-card-list"></div>
+            </section>
+
+            <section class="panel" data-move-to="sensors">
+              <div class="panel-header">
+                <div>
+                  <h2>Control Limits</h2>
+                  <span>Operating thresholds</span>
+                </div>
+              </div>
+              <div id="limitCards" class="limit-grid"></div>
+            </section>
+
+            <section class="panel" data-move-to="gis">
+              <div class="panel-header">
+                <div>
+                  <h2>DMA Balance Graphic</h2>
+                  <span>Pipeline-style inflow, accounted water, leakage, and missing water</span>
+                </div>
+              </div>
+              <div class="balance-graphic" aria-label="DMA water balance formula">
+                <div class="balance-node source-node">
+                  <span>Inflow</span>
+                  <strong>2,704</strong>
+                  <small>m3 today</small>
+                </div>
+                <div class="balance-pipe">
+                  <i class="billed-flow"></i>
+                  <i class="known-flow"></i>
+                  <i class="leak-flow"></i>
+                  <i class="missing-flow"></i>
+                </div>
+                <div class="balance-sinks">
+                  <div><span class="legend-dot blue"></span>Billed 1,665</div>
+                  <div><span class="legend-dot green"></span>Legitimate 126</div>
+                  <div><span class="legend-dot yellow"></span>Leakage 782</div>
+                  <div><span class="legend-dot black"></span>Missing 131</div>
+                </div>
+                <div class="balance-formula">Missing water = inflow - billed - legitimate use - estimated leakage</div>
+              </div>
+              <div id="balanceList" class="balance-list"></div>
+            </section>
+
+            <section class="panel" data-move-to="works">
+              <div class="panel-header">
+                <div>
+                  <h2>Operator Playbook</h2>
+                  <span>Recommended sequence</span>
+                </div>
+              </div>
+              <ol id="playbookList" class="playbook-list"></ol>
+            </section>
+
+            <section class="panel quality-panel" data-move-to="gis">
+              <div class="panel-header">
+                <div>
+                  <h2>GIS Loss Areas</h2>
+                  <span>Spatially ranked subareas needing action</span>
+                </div>
+              </div>
+              <div id="lossAreaCards" class="loss-area-grid"></div>
+            </section>
+
+            <section class="panel quality-panel" data-move-to="quality">
+              <div class="panel-header">
+                <div>
+                  <h2>Water Quality Tests</h2>
+                  <span>Live chamber readings</span>
+                </div>
+              </div>
+              <div id="qualityTests" class="quality-grid"></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="alerts" class="view">
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Alert Register</h2>
+                <span>AI, hydraulic, commercial, and device alerts</span>
+              </div>
+              <div class="panel-actions" aria-label="Alert controls">
+                <button class="tool-button active" data-alert-filter="all" type="button">All</button>
+                <button class="tool-button" data-alert-filter="High" type="button">High</button>
+                <button class="tool-button" data-alert-filter="Quality" type="button">Quality</button>
+                <button class="tool-button" data-alert-filter="Commercial" type="button">Commercial</button>
+                <button id="exportAlertsBtn" class="tool-button" type="button">Export CSV</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Alert</th>
+                    <th>Risk</th>
+                    <th>Leakage Risk</th>
+                    <th>Theft Risk</th>
+                    <th>Evidence</th>
+                    <th>Revenue Impact</th>
+                    <th>Source</th>
+                    <th>Likely cause</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Ops</th>
+                  </tr>
+                </thead>
+              <tbody id="alertRows"></tbody>
+              </table>
+            </div>
+          </section>
+          <div id="alertsPanels" class="tab-panel-grid"></div>
+        </section>
+
+        <section id="gis" class="view">
+          <div id="gisPanels" class="tab-panel-grid"></div>
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>GIS Loss Area Register</h2>
+                <span>DMA subareas ranked by estimated loss, customer impact, and confidence</span>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Area</th>
+                    <th>Loss Type</th>
+                    <th>Estimated Loss</th>
+                    <th>Revenue Loss Today</th>
+                    <th>Monthly Recovery</th>
+                    <th>Annual Recovery</th>
+                    <th>Theft</th>
+                    <th>Meter Fault</th>
+                    <th>Impact</th>
+                    <th>Revenue Recovery</th>
+                    <th>Customers</th>
+                    <th>Confidence</th>
+                    <th>Evidence</th>
+                    <th>Next Action</th>
+                  </tr>
+                </thead>
+                <tbody id="areaRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="sensors" class="view">
+          <div id="sensorsPanels" class="tab-panel-grid"></div>
+          <section class="panel sensor-command-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Sensor Operations</h2>
+                <span>Live health, calibration, battery, signal, and response priority</span>
+              </div>
+            </div>
+            <div id="sensorSummary" class="sensor-summary-grid"></div>
+            <div id="sensorHealthCards" class="sensor-health-grid"></div>
+          </section>
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Sensor Inventory</h2>
+                <span>Commissioned devices in DMA-04</span>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Device</th>
+                    <th>Type</th>
+                    <th>Reading</th>
+                    <th>Battery</th>
+                    <th>Signal</th>
+                    <th>Last Seen</th>
+                    <th>Health</th>
+                    <th>Calibration</th>
+                  </tr>
+                </thead>
+                <tbody id="sensorRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="quality" class="view">
+          <div id="qualityPanels" class="tab-panel-grid"></div>
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Water Quality Monitoring</h2>
+                <span>Compliance response rules, sampling chain, and contamination-risk workflow</span>
+              </div>
+            </div>
+            <div class="quality-detail-grid">
+              <div id="qualityDetail" class="quality-grid"></div>
+              <div class="quality-notes">
+                <h2>Response Rules</h2>
+                <p>Low chlorine, high turbidity, abnormal pH, or sudden conductivity changes create a quality alert and a field sampling work order.</p>
+                <p>Quality alerts are handled separately from leakage alerts because they can indicate contamination, backflow, intrusion through damaged pipes, or treatment problems.</p>
+                <h2>Sampling Chain</h2>
+                <div id="samplingChain" class="sampling-chain"></div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section id="members" class="view">
+          <div id="membersPanels" class="tab-panel-grid"></div>
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Registered Member Register</h2>
+                <span>All registered people and organizations connected to the DMA dashboard</span>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Type</th>
+                    <th>Account</th>
+                    <th>Meter</th>
+                    <th>Zone</th>
+                    <th>Status</th>
+                    <th>Last Activity</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="memberRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="works" class="view">
+          <div id="worksPanels" class="tab-panel-grid"></div>
+          <section class="panel full-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Work Orders</h2>
+                <span>Field response and closure tracking</span>
+              </div>
+            </div>
+            <div id="workOrders" class="work-orders"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+    <div id="toastStack" class="toast-stack" aria-live="polite" aria-label="Notification popups"></div>
+
+    <script src="dashboard.js?v=20260702-login"></script>
+  </body>
+</html>

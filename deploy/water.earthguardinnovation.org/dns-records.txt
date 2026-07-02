@@ -1,0 +1,9 @@
+# DNS records for water.earthguardinnovation.org
+
+# Add this DNS record where earthguardinnovation.org DNS is managed:
+Type: CNAME
+Name: water
+Value: cname.vercel-dns.com
+TTL: Auto
+
+# Then add water.earthguardinnovation.org as a custom domain on the Vercel project that hosts the dashboard.
