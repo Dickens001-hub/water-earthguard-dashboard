@@ -1,0 +1,13 @@
+{
+  "name": "earthguard-waterops-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static EarthGuard WaterOps dashboard for water loss, leakage prediction, and field notifications.",
+  "scripts": {
+    "check": "node --check dashboard.js && node --check deploy/water.earthguardinnovations.org/dashboard.js",
+    "deploy:prod": "node scripts/deploy-live.mjs"
+  },
+  "devDependencies": {
+    "vercel": "^48.8.2"
+  }
+}

@@ -1,0 +1,9 @@
+.dashboard-server.pid
+dashboard-*-check.png
+.agents/
+.codex/
+.git-empty-placeholder/
+node_modules/
+.npm-cache/
+.env
+.env.*

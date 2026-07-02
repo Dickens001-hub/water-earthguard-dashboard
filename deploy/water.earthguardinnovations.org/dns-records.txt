@@ -1,0 +1,14 @@
+# DNS records for water.earthguardinnovations.org
+
+# The active domain uses Vercel nameservers:
+# ns1.vercel-dns.com
+# ns2.vercel-dns.com
+
+# Add this in Vercel DNS:
+Type: CNAME
+Name: water
+Value: cname.vercel-dns.com
+TTL: Auto
+
+# Truehost DNS Manager cannot edit the zone while the domain uses Vercel nameservers.
+
