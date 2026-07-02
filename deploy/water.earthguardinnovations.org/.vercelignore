@@ -1,0 +1,9 @@
+.env
+.env.*
+.npm-cache
+.vercel
+node_modules
+*.log
+*.err
+README.md
+dns-records.txt
