@@ -610,6 +610,10 @@ select {
   display: block;
 }
 
+#members.view.active {
+  width: 100%;
+}
+
 .tab-panel-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -630,7 +634,8 @@ select {
 }
 
 #membersPanels {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
 }
 
@@ -1718,11 +1723,12 @@ select {
 
 .members-panel {
   width: 100%;
+  max-width: none;
   min-height: 320px;
 }
 
 .member-card-list {
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 14px;
 }
 
