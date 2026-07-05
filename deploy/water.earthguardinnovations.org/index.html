@@ -8,7 +8,7 @@
       name="description"
       content="EarthGuard Innovations water leakage, NRW, IoT, AI, and water quality monitoring dashboard."
     />
-    <link rel="stylesheet" href="dashboard.css?v=20260705-space-all" />
+    <link rel="stylesheet" href="dashboard.css?v=20260705-balance-space" />
   </head>
   <body class="auth-locked">
     <section class="login-screen" id="loginScreen" aria-label="Dashboard login">
@@ -477,34 +477,36 @@
               <div id="limitCards" class="limit-grid"></div>
             </section>
 
-            <section class="panel" data-move-to="gis">
+            <section class="panel balance-panel" data-move-to="gis">
               <div class="panel-header">
                 <div>
                   <h2>DMA Balance Graphic</h2>
                   <span>Pipeline-style inflow, accounted water, leakage, and missing water</span>
                 </div>
               </div>
-              <div class="balance-graphic" aria-label="DMA water balance formula">
-                <div class="balance-node source-node">
-                  <span>Inflow</span>
-                  <strong>2,704</strong>
-                  <small>m3 today</small>
+              <div class="balance-layout">
+                <div class="balance-graphic" aria-label="DMA water balance formula">
+                  <div class="balance-node source-node">
+                    <span>Inflow</span>
+                    <strong>2,704</strong>
+                    <small>m3 today</small>
+                  </div>
+                  <div class="balance-pipe">
+                    <i class="billed-flow"></i>
+                    <i class="known-flow"></i>
+                    <i class="leak-flow"></i>
+                    <i class="missing-flow"></i>
+                  </div>
+                  <div class="balance-sinks">
+                    <div><span class="legend-dot blue"></span>Billed 1,665</div>
+                    <div><span class="legend-dot green"></span>Legitimate 126</div>
+                    <div><span class="legend-dot yellow"></span>Leakage 782</div>
+                    <div><span class="legend-dot black"></span>Missing 131</div>
+                  </div>
+                  <div class="balance-formula">Missing water = inflow - billed - legitimate use - estimated leakage</div>
                 </div>
-                <div class="balance-pipe">
-                  <i class="billed-flow"></i>
-                  <i class="known-flow"></i>
-                  <i class="leak-flow"></i>
-                  <i class="missing-flow"></i>
-                </div>
-                <div class="balance-sinks">
-                  <div><span class="legend-dot blue"></span>Billed 1,665</div>
-                  <div><span class="legend-dot green"></span>Legitimate 126</div>
-                  <div><span class="legend-dot yellow"></span>Leakage 782</div>
-                  <div><span class="legend-dot black"></span>Missing 131</div>
-                </div>
-                <div class="balance-formula">Missing water = inflow - billed - legitimate use - estimated leakage</div>
+                <div id="balanceList" class="balance-list"></div>
               </div>
-              <div id="balanceList" class="balance-list"></div>
             </section>
 
             <section class="panel" data-move-to="works">
@@ -719,6 +721,6 @@
     </div>
     <div id="toastStack" class="toast-stack" aria-live="polite" aria-label="Notification popups"></div>
 
-    <script src="dashboard.js?v=20260705-space-all"></script>
+    <script src="dashboard.js?v=20260705-balance-space"></script>
   </body>
 </html>
