@@ -629,6 +629,14 @@ select {
   grid-column: 1 / -1;
 }
 
+#membersPanels {
+  grid-template-columns: 1fr;
+}
+
+#membersPanels .panel {
+  grid-column: 1 / -1;
+}
+
 .tab-panel-grid .panel,
 .tab-panel-grid .integrity-strip,
 .tab-panel-grid .quality-strip {
@@ -1628,6 +1636,7 @@ select {
 .work-card header,
 .member-card header {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
@@ -1684,12 +1693,26 @@ select {
 }
 
 .member-card-list {
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
 }
 
 .member-card {
   display: grid;
-  gap: 8px;
+  gap: 10px;
+  min-height: 220px;
+}
+
+.member-card .pill {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 132px;
+  min-height: 28px;
+  padding: 5px 12px;
+  line-height: 1.15;
+  white-space: normal;
+  text-align: center;
 }
 
 .member-card header span {
