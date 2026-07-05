@@ -601,6 +601,14 @@ select {
   grid-template-columns: 1fr;
 }
 
+#sensorsPanels {
+  grid-template-columns: 1fr;
+}
+
+#sensorsPanels .panel {
+  grid-column: 1 / -1;
+}
+
 .tab-panel-grid .panel,
 .tab-panel-grid .integrity-strip,
 .tab-panel-grid .quality-strip {
@@ -2088,7 +2096,7 @@ th {
 }
 
 .limit-grid {
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
 }
 
 .limit-card strong {
