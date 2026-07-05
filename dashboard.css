@@ -444,7 +444,7 @@ select {
 .integrity-strip,
 .quality-strip {
   display: grid;
-  grid-template-columns: minmax(180px, 0.24fr) minmax(0, 1fr);
+  grid-template-columns: minmax(260px, 0.22fr) minmax(0, 1fr);
   gap: 12px;
   align-items: stretch;
   margin-bottom: 16px;
@@ -482,7 +482,7 @@ select {
 .integrity-strip-items,
 .quality-summary-items {
   display: grid;
-  grid-template-columns: repeat(5, minmax(128px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 8px;
 }
 
@@ -502,7 +502,8 @@ select {
 .quality-summary-card {
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 10px;
+  min-height: 154px;
 }
 
 .quality-summary-card strong {
@@ -517,9 +518,9 @@ select {
 
 .quality-summary-card header,
 .quality-card header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
   gap: 10px;
 }
 
@@ -532,22 +533,24 @@ select {
 .integrity-chip span,
 .quality-summary-card span {
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .quality-summary-card .pill,
 .quality-card .pill {
-  justify-self: end;
+  justify-self: start;
   flex: 0 0 auto;
   min-height: 26px;
-  max-width: 132px;
+  max-width: 100%;
   padding: 4px 10px;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff;
   font-size: 12px;
   letter-spacing: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
+  white-space: normal;
+  text-align: center;
 }
 
 .quality-summary-card .pill.yellow,
