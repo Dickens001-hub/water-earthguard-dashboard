@@ -539,6 +539,23 @@ select {
 
 .quality-summary-card .pill,
 .quality-card .pill {
+  width: fit-content;
+  max-width: 100%;
+  line-height: 1.2;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.quality-card header > span {
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.quality-card p {
+  max-width: 26ch;
+}
+
+.quality-card .pill {
   justify-self: start;
   flex: 0 0 auto;
   min-height: 26px;
@@ -2325,14 +2342,15 @@ th {
 }
 
 .quality-grid {
-  grid-template-columns: repeat(5, minmax(130px, 1fr));
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
 }
 
 .quality-card {
   display: grid;
   align-content: start;
-  gap: 9px;
-  min-height: 136px;
+  gap: 12px;
+  min-height: 176px;
+  overflow: hidden;
 }
 
 .quality-notes p {
@@ -2343,7 +2361,7 @@ th {
 .quality-card strong {
   display: block;
   margin: 0;
-  font-size: 25px;
+  font-size: 30px;
   line-height: 1.08;
 }
 
@@ -2357,12 +2375,28 @@ th {
 
 .quality-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+  grid-template-columns: minmax(520px, 1fr) minmax(320px, 0.55fr);
   gap: 16px;
+  align-items: start;
+}
+
+.quality-detail-grid .quality-grid {
+  align-items: stretch;
+}
+
+.quality-notes {
+  position: sticky;
+  top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.quality-notes h2 {
+  margin-bottom: 0;
 }
 
 .quality-notes p {
-  margin-bottom: 10px;
+  margin-bottom: 0;
   line-height: 1.5;
 }
 
