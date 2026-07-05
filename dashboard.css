@@ -612,7 +612,7 @@ select {
 
 .tab-panel-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -634,6 +634,16 @@ select {
 }
 
 #membersPanels .panel {
+  grid-column: 1 / -1;
+}
+
+#worksPanels,
+#qualityPanels {
+  grid-template-columns: 1fr;
+}
+
+#worksPanels .panel,
+#qualityPanels .panel {
   grid-column: 1 / -1;
 }
 
@@ -1274,6 +1284,21 @@ select {
 .feature-weight-list {
   display: grid;
   gap: 10px;
+}
+
+.prediction-grid,
+.usage-forecast {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.feature-weight-list,
+.learning-loop,
+.notification-feed,
+.work-orders,
+.team-list,
+.balance-list,
+.playbook-list {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .prediction-card,
@@ -2023,7 +2048,7 @@ th {
 
 .sensor-summary-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
   margin-bottom: 14px;
 }
@@ -2071,7 +2096,7 @@ th {
 
 .sensor-health-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 10px;
 }
 
@@ -2139,7 +2164,7 @@ th {
 }
 
 .limit-grid {
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .limit-card strong {
@@ -2307,7 +2332,7 @@ th {
 }
 
 .loss-area-grid {
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .loss-area-card {
@@ -2459,18 +2484,21 @@ th {
 
   .quality-grid,
   .quality-detail-grid,
+  .score-grid,
+  .balance-sinks {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tab-panel-grid,
   .limit-grid,
   .loss-area-grid,
-  .member-card-list,
-  .score-grid,
-  .balance-sinks,
-  .tab-panel-grid {
-    grid-template-columns: 1fr 1fr;
+  .member-card-list {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .sensor-summary-grid,
   .sensor-health-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
